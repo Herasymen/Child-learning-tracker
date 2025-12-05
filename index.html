@@ -5,6 +5,19 @@
   <title>LEGO City Learning – Petr’s Missions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --bg: #fffbef;
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --accent: #f97316;
+      --accent-soft: #ffedd5;
+      --card-bg: #ffffff;
+      --text-main: #111827;
+      --text-soft: #6b7280;
+      --radius-lg: 1.3rem;
+      --radius-md: 1rem;
+    }
+
     * {
       box-sizing: border-box;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -12,19 +25,20 @@
 
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #fee2e2 0, #fef3c7 30%, #eff6ff 80%);
-      color: #111827;
+      background: radial-gradient(circle at top, #fef3c7 0, #fffbef 45%, #eff6ff 100%);
+      color: var(--text-main);
+      font-size: 16px;
     }
 
     header {
-      padding: 1.1rem 1.5rem;
+      padding: 1rem 1.2rem;
       background: linear-gradient(90deg, #0ea5e9, #6366f1);
       color: white;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.75rem;
       box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
       position: sticky;
       top: 0;
@@ -33,10 +47,10 @@
 
     header h1 {
       margin: 0;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
 
     header h1 span {
@@ -52,37 +66,40 @@
     .top-controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 0.5rem;
       align-items: center;
     }
 
     label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #e5e7eb;
     }
 
     input[type="text"],
     select {
-      border-radius: 0.75rem;
-      border: 1px solid #d1d5db;
-      padding: 0.35rem 0.6rem;
-      font-size: 0.9rem;
-      background: white;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      padding: 0.35rem 0.7rem;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.95);
       min-width: 0;
+      color: #111827;
     }
 
     main {
       max-width: 1180px;
       margin: 0 auto 2rem;
-      padding: 1rem;
+      padding: 1rem 0.8rem;
     }
 
+    /* HERO */
+
     .hero {
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
       margin-bottom: 1rem;
       display: grid;
-      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
-      gap: 1rem;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+      gap: 0.9rem;
     }
 
     @media (max-width: 900px) {
@@ -92,33 +109,33 @@
     }
 
     .card {
-      background: white;
-      border-radius: 1rem;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
       padding: 1rem;
       box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
       position: relative;
       overflow: hidden;
     }
 
-    .hero-title {
-      font-size: 1.1rem;
-      font-weight: 700;
+    .hero-main-title {
+      font-size: 1.3rem;
+      font-weight: 800;
       margin-bottom: 0.3rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
     }
 
-    .hero-title span {
-      font-size: 1.4rem;
+    .hero-main-title span {
+      font-size: 1.5rem;
     }
 
-    .pill {
+    .hero-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.25rem;
       font-size: 0.75rem;
-      padding: 0.1rem 0.6rem;
+      padding: 0.15rem 0.7rem;
       border-radius: 999px;
       background: #fef3c7;
       border: 1px solid #facc15;
@@ -129,12 +146,50 @@
     .hero-text {
       font-size: 0.9rem;
       color: #374151;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 6px 0 #ea580c;
+    }
+
+    .btn-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #ea580c;
+    }
+
+    .btn-soft {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px dashed #fde68a;
+      color: #92400e;
     }
 
     .lego-city {
       display: grid;
       gap: 0.35rem;
-      margin-top: 0.5rem;
+      margin-top: 0.6rem;
     }
 
     .lego-row {
@@ -144,26 +199,26 @@
 
     .brick {
       flex: 1;
-      height: 26px;
-      border-radius: 0.4rem;
+      height: 28px;
+      border-radius: 0.5rem;
       position: relative;
       box-shadow: 0 3px 0 rgba(15, 23, 42, 0.25);
       animation: floatBrick 4s ease-in-out infinite;
     }
 
     .lego-row:nth-child(2) .brick {
-      animation-delay: 0.5s;
+      animation-delay: 0.6s;
     }
 
     .brick::before {
       content: "";
       position: absolute;
-      top: -7px;
+      top: -8px;
       left: 6px;
-      width: 14px;
-      height: 7px;
-      border-radius: 0.4rem 0.4rem 0.1rem 0.1rem;
-      background: rgba(255, 255, 255, 0.4);
+      width: 16px;
+      height: 8px;
+      border-radius: 0.5rem 0.5rem 0.1rem 0.1rem;
+      background: rgba(255, 255, 255, 0.5);
     }
 
     .brick.red { background: #f97373; }
@@ -180,39 +235,28 @@
       background: #111827;
       color: white;
       border-radius: 1.3rem;
-      padding: 0.7rem 0.9rem;
-      font-size: 0.85rem;
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
       margin-bottom: 0.4rem;
-      max-width: 270px;
+      max-width: 280px;
       box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
     }
 
     .robot-face {
-      font-size: 3.4rem;
+      font-size: 3.8rem;
       text-align: center;
-      animation: robotWave 2.8s ease-in-out infinite;
+      animation: robotWave 2.5s ease-in-out infinite;
     }
 
     @keyframes robotWave {
       0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-3px) rotate(-3deg); }
+      50% { transform: translateY(-3px) rotate(-4deg); }
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.6fr);
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
+    /* PHRASES */
 
     h2.section-title {
-      font-size: 1rem;
+      font-size: 1.1rem;
       margin: 0 0 0.3rem;
       display: flex;
       align-items: center;
@@ -221,103 +265,201 @@
     }
 
     .badge {
-      font-size: 0.7rem;
-      padding: 0.15rem 0.5rem;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: var(--primary-soft);
+      color: var(--primary);
       border: 1px solid #bfdbfe;
       white-space: nowrap;
+    }
+
+    .small-text {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .phrases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .phrase-card {
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.7rem;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .phrase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .phrase-text-main {
+      font-weight: 600;
+    }
+
+    .phrase-translation {
+      font-size: 0.78rem;
+      color: #4b5563;
+    }
+
+    .phrase-tip {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .btn-circle {
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 3px 0 #1d4ed8;
+    }
+
+    .btn-circle:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 #1d4ed8;
+    }
+
+    /* LAYOUT */
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.6fr);
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
     }
 
     .controls-row {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
       align-items: center;
       font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .quest-track {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .quest-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
       color: #4b5563;
+      position: relative;
+    }
+
+    .quest-dot.completed {
+      background: #22c55e;
+      color: white;
+    }
+
+    .quest-dot.completed::after {
+      content: "★";
+      position: absolute;
+      top: -7px;
+      right: -4px;
+      font-size: 0.65rem;
+      color: #facc15;
     }
 
     .missions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 0.7rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.8rem;
     }
 
     .mission-card {
-      border-radius: 1rem;
-      border: 1px solid #e5e7eb;
-      padding: 0.7rem 0.7rem 0.6rem;
+      border-radius: var(--radius-lg);
+      border: 2px solid #e5e7eb;
+      padding: 0.8rem 0.8rem 0.7rem;
       background: #f9fafb;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.3rem;
       position: relative;
       overflow: hidden;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
     }
 
-    .mission-card::after {
-      content: "";
-      position: absolute;
-      inset: auto -30px -30px auto;
-      width: 60px;
-      height: 60px;
+    .mission-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.15);
+    }
+
+    .mission-icon {
+      width: 34px;
+      height: 34px;
       border-radius: 999px;
-      background: radial-gradient(circle at center, rgba(59,130,246,0.25), transparent);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 3px 0 rgba(148, 163, 184, 0.5);
+    }
+
+    .mission-header-row {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
     }
 
     .mission-domain {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: #6b7280;
     }
 
     .mission-title {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: #111827;
     }
 
     .mission-desc {
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       color: #4b5563;
-    }
-
-    .btn {
-      border-radius: 999px;
-      border: none;
-      padding: 0.35rem 0.7rem;
-      font-size: 0.8rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: #2563eb;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.05);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border: 1px dashed #9ca3af;
-      color: #374151;
     }
 
     .mission-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.3rem;
-      margin-top: 0.15rem;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
     }
 
     .mission-status {
@@ -325,7 +467,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: #374151;
     }
 
@@ -337,18 +479,38 @@
     }
 
     .mission-status input[type="checkbox"] {
-      transform: scale(1.05);
+      transform: scale(1.1);
       cursor: pointer;
     }
 
+    .quest-btn {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 999px;
+      border: none;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+
+    .quest-btn span {
+      font-size: 0.95rem;
+    }
+
     details {
-      margin-top: 0.25rem;
-      font-size: 0.78rem;
+      margin-top: 0.3rem;
+      font-size: 0.8rem;
+      background: #eef2ff;
+      border-radius: 0.8rem;
+      padding: 0.4rem 0.5rem;
     }
 
     details summary {
       cursor: pointer;
-      color: #2563eb;
+      color: #4f46e5;
       list-style: none;
     }
 
@@ -369,15 +531,80 @@
       content: "▼";
     }
 
+    .dialog-text {
+      margin-top: 0.3rem;
+      color: #374151;
+    }
+
+    .dialog-text strong {
+      color: #111827;
+    }
+
+    /* QUIZ */
+
+    .quiz-block {
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+      border-top: 1px dashed #c7d2fe;
+    }
+
+    .quiz-question {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .quiz-option-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.78rem;
+      cursor: pointer;
+      background: white;
+      border: 1px solid #cbd5f5;
+    }
+
+    .quiz-option-btn.correct {
+      background: #bbf7d0;
+      border-color: #22c55e;
+    }
+
+    .quiz-option-btn.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    .quiz-feedback {
+      font-size: 0.78rem;
+      margin-top: 0.2rem;
+      min-height: 1rem;
+    }
+
+    .quiz-feedback.ok {
+      color: #15803d;
+    }
+
+    .quiz-feedback.bad {
+      color: #b91c1c;
+    }
+
+    /* PROGRESS & NOTES */
+
     .progress-card {
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.8rem;
     }
 
     .progress-bar-wrapper {
       width: 100%;
-      height: 10px;
+      height: 12px;
       border-radius: 999px;
       background: #e5e7eb;
       overflow: hidden;
@@ -390,60 +617,21 @@
       transition: width 0.2s ease-out;
     }
 
-    .small-text {
-      font-size: 0.78rem;
-      color: #6b7280;
-    }
-
     textarea {
       width: 100%;
       resize: vertical;
-      border-radius: 0.75rem;
+      border-radius: var(--radius-md);
       border: 1px solid #d1d5db;
-      padding: 0.5rem 0.6rem;
+      padding: 0.55rem 0.7rem;
       font-size: 0.85rem;
       min-height: 120px;
-    }
-
-    .phrases-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 0.6rem;
-      margin-top: 0.4rem;
-    }
-
-    .phrase-card {
-      border-radius: 0.9rem;
-      padding: 0.5rem 0.6rem;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .phrase-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .phrase-text-main {
-      font-weight: 600;
-    }
-
-    .phrase-translation {
-      font-size: 0.75rem;
-      color: #4b5563;
     }
 
     .footer-note {
       text-align: center;
       font-size: 0.75rem;
       color: #9ca3af;
-      margin-top: 1rem;
+      margin-top: 1.1rem;
       margin-bottom: 0.5rem;
     }
   </style>
@@ -452,11 +640,11 @@
 <header>
   <div>
     <h1><span>🧱</span> LEGO City Learning</h1>
-    <small>Four weeks of city missions for Petr – English, Slovene, maths & more</small>
+    <small>Four weeks of city quests for Petr – 7 skills a day</small>
   </div>
   <div class="top-controls">
     <label>
-      Child name:
+      Child:
       <input type="text" id="childName" placeholder="Petr" />
     </label>
     <label>
@@ -482,16 +670,24 @@
 </header>
 
 <main>
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="hero">
     <div class="card">
-      <div class="hero-title"><span>🏙️</span>Welcome to LEGO City skills lab</div>
-      <div class="pill">7 skills every day · Saturday to Wednesday · 4 weeks</div>
+      <div class="hero-main-title"><span>🏙️</span>LEGO City skills lab</div>
+      <div class="hero-pill">7 short LEGO quests · English · Slovene · Maths · Creativity</div>
       <p class="hero-text">
-        Each day Petr completes 7 short LEGO City missions: English, Slovene, social confidence,
-        fine motor skills, maths, creativity and “Understanding the World”. Download the PDF,
-        follow the parent dialogue and use the audio phrases to practise speaking.
+        Every quest trains one skill: English speaking, social confidence, fine motor skills, maths,
+        Slovene, creativity and understanding the world. Choose a week and a day, then press
+        <strong>“Start today’s quests”</strong>.
       </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="startQuestsBtn">
+          <span>▶</span> Start today’s quests
+        </button>
+        <button class="btn btn-soft" id="scrollToPhrasesBtn">
+          🎧 New phrases today
+        </button>
+      </div>
       <div class="lego-city" aria-hidden="true">
         <div class="lego-row">
           <div class="brick red"></div>
@@ -510,81 +706,84 @@
 
     <div class="card">
       <div class="robot-bubble">
-        Hi! I am your LEGO City robot. Choose a week and a day, download the PDFs
-        and follow the dialogues. Let’s help Petr speak, move, count and play with confidence.
+        Hi! I am your LEGO City robot. Each card is a quest. Click
+        <strong>“Open PDF”</strong> to print the worksheet, then <strong>“Start quest”</strong>
+        for a mini-game or test. Use the audio phrases while playing.
       </div>
       <div class="robot-face">🤖</div>
     </div>
   </section>
 
-  <!-- Phrases -->
-  <section class="card">
+  <!-- PHRASES -->
+  <section class="card" id="phrasesSection">
     <h2 class="section-title">
-      New phrases this week
+      New phrases for this week
       <span class="badge" id="phrasesWeekLabel">Week 1 – City Heroes</span>
     </h2>
     <p class="small-text">
-      Use these phrases during play and while doing the PDFs. Click the ▶ button to play audio
-      once you upload mp3 files to the <code>audio/</code> folder.
+      Play the audio (after you upload mp3 files to the <code>audio/</code> folder) and repeat with Petr.
+      Use English phrases in English quests and Slovene phrases during Slovene time.
     </p>
-
     <div class="phrases-grid" id="englishPhrases"></div>
     <div class="phrases-grid" id="slovenePhrases"></div>
   </section>
 
-  <!-- Layout -->
-  <section class="layout">
-    <!-- Daily missions -->
+  <!-- MAIN LAYOUT -->
+  <section class="layout" id="questsSection">
+    <!-- MISSIONS -->
     <section class="card">
       <h2 class="section-title">
-        Daily missions for selected day
+        Today’s LEGO City quests
         <span class="badge" id="dayLabel"></span>
       </h2>
       <div class="controls-row">
-        <span>7 missions: one for each skill area.</span>
+        <span>7 quests = 7 skills.</span>
+        <div class="quest-track" id="questDots"></div>
       </div>
       <div class="missions-grid" id="missionsGrid"></div>
     </section>
 
-    <!-- Progress + notes -->
+    <!-- PROGRESS + NOTES -->
     <aside class="card progress-card">
       <h2 class="section-title">
         Progress today
         <span class="badge" id="childLabel">Petr</span>
       </h2>
-
       <div>
-        <div>Total missions today: <strong id="totalMissions">0</strong></div>
-        <div>Done by child: <strong id="doneCount">0</strong></div>
-        <div>Checked by parent: <strong id="checkedCount">0</strong></div>
+        <div style="font-size:0.9rem;">
+          Total quests: <strong id="totalMissions">0</strong><br />
+          Done by child: <strong id="doneCount">0</strong><br />
+          Checked by parent: <strong id="checkedCount">0</strong>
+        </div>
         <div class="progress-bar-wrapper">
           <div class="progress-bar" id="progressBar"></div>
         </div>
         <p class="small-text">
-          The bar shows how many missions are <strong>checked by parent</strong>.
+          The bar shows how many quests are <strong>checked by parent</strong>. Each checked quest lights up a star dot.
         </p>
       </div>
 
       <div>
         <label for="notesArea">Parent notes for this day</label>
-        <textarea id="notesArea" placeholder="Observations, new words, social confidence, fine motor skills…"></textarea>
+        <textarea id="notesArea" placeholder="Observations: speaking, social confidence, fine motor skills…"></textarea>
       </div>
     </aside>
   </section>
 
   <p class="footer-note">
-    All data is stored locally in this browser (localStorage). Upload your own PDFs and audio files
-    to make the experience fully personal for Petr.
+    All data stays in this browser (localStorage). Upload your own PDFs to <code>pdf/</code> and audio files to <code>audio/</code>.
   </p>
 </main>
 
 <script>
   (function () {
-    const STORAGE_KEY = "legoCityProgram_v1";
+    const STORAGE_KEY = "legoCityProgram_v2";
 
     const childNameInput = document.getElementById("childName");
     const weekSelect = document.getElementById("weekSelect");
     const daySelect = document.getElementById("daySelect");
+    const startQuestsBtn = document.getElementById("startQuestsBtn");
+    const scrollToPhrasesBtn = document.getElementById("scrollToPhrasesBtn");
     const missionsGrid = document.getElementById("missionsGrid");
     const dayLabel = document.getElementById("dayLabel");
     const childLabel = document.getElementById("childLabel");
@@ -596,6 +795,10 @@
     const phrasesWeekLabel = document.getElementById("phrasesWeekLabel");
     const englishPhrasesEl = document.getElementById("englishPhrases");
     const slovenePhrasesEl = document.getElementById("slovenePhrases");
+    const questDots = document.getElementById("questDots");
+
+    const phrasesSection = document.getElementById("phrasesSection");
+    const questsSection = document.getElementById("questsSection");
 
     const DAYS_LABEL = {
       sat: "Saturday",
@@ -605,9 +808,18 @@
       wed: "Wednesday"
     };
 
-    // === Program data ===
-    // Для краткости: полные диалоги и PDF подробно для Week1, остальные недели – тот же формат, но короче.
-    const PROGRAM = {
+    const DOMAIN_ICONS = {
+      "English Speaking & Listening": "🗣️",
+      "Social Confidence / Group Interaction": "🤝",
+      "Fine Motor Skills / Early Writing": "✍️",
+      "Maths (Numbers & Shapes)": "🔢",
+      "Slovene Language": "🇸🇮",
+      "Creative Development (Art & Role Play)": "🎨",
+      "Understanding the World": "🌍"
+    };
+
+    // === PROGRAM DATA (Week1 подробно; Week2–4 копируют структуру) ===
+       const PROGRAM = {
       week1: {
         label: "Week 1 – City Heroes",
         englishPhrases: [
@@ -615,25 +827,25 @@
             id: "w1_en_1",
             text: "What did you build today?",
             translation: "Что ты сегодня построил?",
-            tip: "Помогает Петру рассказывать о своём дне полными предложениями."
+            tip: "Попроси Петра ответить полным предложением: “I built …”."
           },
           {
             id: "w1_en_2",
             text: "Can you tell me the story?",
             translation: "Расскажешь мне эту историю?",
-            tip: "Тренируем пересказ."
+            tip: "Тренируем связный пересказ по картинкам."
           },
           {
             id: "w1_en_3",
             text: "I can see a big red fire truck.",
             translation: "Я вижу большой красный пожарный грузовик.",
-            tip: "Модель описательного предложения."
+            tip: "Модель описательного предложения (цвет + размер + объект)."
           },
           {
             id: "w1_en_4",
             text: "How does your hero feel?",
             translation: "Как себя чувствует твой герой?",
-            tip: "Учимся называть эмоции."
+            tip: "Помогает говорить об эмоциях, а не только о действиях."
           }
         ],
         slovenePhrases: [
@@ -641,28 +853,29 @@
             id: "w1_sl_1",
             text: "Kaj je to?",
             translation: "Что это?",
-            tip: "Базовый вопрос к предметам."
+            tip: "Используй с любым предметом на картинке."
           },
           {
             id: "w1_sl_2",
             text: "To je gasilski avto.",
             translation: "Это пожарная машина.",
-            tip: "Простые именные предложения."
+            tip: "Соединяй с картинкой машин LEGO City."
           },
           {
             id: "w1_sl_3",
             text: "Kako se počutiš?",
             translation: "Как ты себя чувствуешь?",
-            tip: "Эмоции на словенском."
+            tip: "Мягкий заход на эмоции на словенском."
           },
           {
             id: "w1_sl_4",
             text: "Rad imam LEGO mesto.",
             translation: "Я люблю город LEGO.",
-            tip: "Я-высказывания."
+            tip: "Пусть Пётр повторяет, указывая на свой город из кубиков."
           }
         ],
         days: {
+          /* ---------- SATURDAY ---------- */
           sat: {
             title: "Start Mission – Fire Station Day",
             activities: [
@@ -671,39 +884,62 @@
                 domain: "English Speaking & Listening",
                 title: "Fire station story time",
                 pdf: "pdf/w1-sat-english-fire-station-story.pdf",
-                desc: "Картинки пожарной станции. Пётр отвечает на вопросы и составляет простые предложения про пожарных.",
+                desc: "Картинки пожарной станции. Пётр отвечает на вопросы и говорит короткие предложения.",
                 dialog: [
                   "Parent: Look at the picture. What can you see?",
                   "Child: I can see a fire truck.",
                   "Parent: What is the firefighter doing?",
                   "Child: He is helping people.",
                   "Parent: Can you tell me the story of this fire truck?"
-                ]
+                ],
+                quiz: {
+                  question: "Which sentence is best?",
+                  options: [
+                    "Fire truck red.",
+                    "I can see a red fire truck.",
+                    "Truck red big."
+                  ],
+                  correctIndex: 1
+                }
               },
               {
                 id: "social",
                 domain: "Social Confidence / Group Interaction",
                 title: "Firefighters’ team talk",
                 pdf: "pdf/w1-sat-social-fire-team-cards.pdf",
-                desc: "Карточки с ролями: командир, водитель, помощник. Родитель и ребёнок разыгрывают диалог.",
+                desc: "Карточки с ролями: командир, водитель, помощник. Разыгрываем мини-сценку.",
                 dialog: [
                   "Parent: You are the firefighter, I am the captain.",
                   "Parent: “Petr, can you help me? We need water!”",
                   "Child: “Yes, I can help. I will drive the truck!”",
                   "Parent: “Thank you! You are part of the team.”"
-                ]
+                ],
+                quiz: {
+                  question: "What is a good team answer?",
+                  options: [
+                    "No, I don’t want.",
+                    "Yes, I can help.",
+                    "Fire truck!"
+                  ],
+                  correctIndex: 1
+                }
               },
               {
                 id: "motor",
                 domain: "Fine Motor Skills / Early Writing",
                 title: "Follow the hoses",
                 pdf: "pdf/w1-sat-motor-fire-hose-lines.pdf",
-                desc: "Прямые, волнистые и пунктирные линии – шланги от машины к огню. Обводим карандашом.",
+                desc: "Прямые, волнистые и пунктирные линии – шланги от машины к огню.",
                 dialog: [
                   "Parent: Let’s help the water reach the fire.",
                   "Parent: Follow the line slowly with your pencil.",
                   "Parent: Great control! The water reached the fire."
-                ]
+                ],
+                quiz: {
+                  question: "Which line is easiest to start with?",
+                  options: ["Spiral line", "Straight line", "Zig-zag mountain"],
+                  correctIndex: 1
+                }
               },
               {
                 id: "maths",
@@ -716,7 +952,12 @@
                   "Child: Three.",
                   "Parent: Can you circle number 3?",
                   "Parent: Let’s count the wheels together."
-                ]
+                ],
+                quiz: {
+                  question: "If there are 2 trucks and 1 more comes, how many trucks?",
+                  options: ["2", "3", "4"],
+                  correctIndex: 1
+                }
               },
               {
                 id: "slovene",
@@ -729,7 +970,12 @@
                   "Child: To je gasilski avto.",
                   "Parent: Super! In kaj je to?",
                   "Child: To je čelada."
-                ]
+                ],
+                quiz: {
+                  question: "Kako rečemo 'fire truck' v slovenščini?",
+                  options: ["Policijski avto", "Gasilski avto", "Avtobus"],
+                  correctIndex: 1
+                }
               },
               {
                 id: "creative",
@@ -741,7 +987,12 @@
                   "Parent: Let’s build your own fire station.",
                   "Parent: Where is the garage? Where do people wait?",
                   "Child: Here is the garage, here is the door."
-                ]
+                ],
+                quiz: {
+                  question: "What can we add to make the station safer?",
+                  options: ["A big hole", "A traffic light", "Nothing"],
+                  correctIndex: 1
+                }
               },
               {
                 id: "world",
@@ -753,10 +1004,21 @@
                   "Parent: Why do we need firefighters?",
                   "Child: Because of fire.",
                   "Parent: They help people and keep the city safe."
-                ]
+                ],
+                quiz: {
+                  question: "When do we call firefighters?",
+                  options: [
+                    "When we are bored",
+                    "When there is a fire",
+                    "When we want ice cream"
+                  ],
+                  correctIndex: 1
+                }
               }
             ]
           },
+
+          /* ---------- SUNDAY ---------- */
           sun: {
             title: "Police Day – LEGO City Police Station",
             activities: [
@@ -765,26 +1027,45 @@
                 domain: "English Speaking & Listening",
                 title: "Police car story",
                 pdf: "pdf/w1-sun-english-police-story.pdf",
-                desc: "Последовательность картинок с погоней. Пётр описывает, что происходит.",
+                desc: "Последовательность картинок с полицейской машиной. Пётр описывает, что происходит.",
                 dialog: [
                   "Parent: What can you see in picture one?",
                   "Child: I see a police car.",
                   "Parent: What happens next?",
-                  "Child: The car is driving fast."
-                ]
+                  "Child: The car is driving fast.",
+                  "Parent: Why is the police car in a hurry?"
+                ],
+                quiz: {
+                  question: "Which sentence sounds best?",
+                  options: [
+                    "Police car fast.",
+                    "The police car is fast.",
+                    "Fast car police."
+                  ],
+                  correctIndex: 1
+                }
               },
               {
                 id: "social",
                 domain: "Social Confidence / Group Interaction",
                 title: "Police & citizen role play",
                 pdf: "pdf/w1-sun-social-police-dialogue-cards.pdf",
-                desc: "Карточки ролей: полицейский, потерявшийся ребёнок.",
+                desc: "Карточки ролей: полицейский, потерявшийся ребёнок. Отрабатываем вежливые фразы.",
                 dialog: [
                   "Parent (police): “Hello! How can I help you?”",
                   "Child (citizen): “I can’t find my mum.”",
                   "Parent: “Don’t worry, I will help you. What’s your name?”",
                   "Child: “My name is Petr.”"
-                ]
+                ],
+                quiz: {
+                  question: "What is a polite start for the police officer?",
+                  options: [
+                    "“What do you want?”",
+                    "“Hello! How can I help you?”",
+                    "“Go away.”"
+                  ],
+                  correctIndex: 1
+                }
               },
               {
                 id: "motor",
@@ -794,8 +1075,18 @@
                 desc: "Обводим дороги, не выходя за линии; дорисовываем недостающие участки.",
                 dialog: [
                   "Parent: Can you drive the pencil car along the road?",
-                  "Parent: Try to stay inside the line."
-                ]
+                  "Parent: Try to stay inside the line.",
+                  "Parent: Now make a small turn."
+                ],
+                quiz: {
+                  question: "Where should the pencil-car go?",
+                  options: [
+                    "On the road line",
+                    "Outside the page",
+                    "Through the houses"
+                  ],
+                  correctIndex: 0
+                }
               },
               {
                 id: "maths",
@@ -806,8 +1097,14 @@
                 dialog: [
                   "Parent: What shape is the badge?",
                   "Child: A star.",
-                  "Parent: Can you find another star?"
-                ]
+                  "Parent: Can you find a circle sign?",
+                  "Child: Here!"
+                ],
+                quiz: {
+                  question: "Which is a star?",
+                  options: ["⭐", "⬛", "⚪"],
+                  correctIndex: 0
+                }
               },
               {
                 id: "slovene",
@@ -819,8 +1116,14 @@
                   "Parent: Kaj je to?",
                   "Child: To je policist.",
                   "Parent: Kje je policijski avto?",
-                  "Child: Tukaj."
-                ]
+                  "Child: Tukaj.",
+                  "Parent: To je policijska postaja."
+                ],
+                quiz: {
+                  question: "Kaj pomeni ‘policist’?",
+                  options: ["Доктор", "Полицейский", "Пожарный"],
+                  correctIndex: 1
+                }
               },
               {
                 id: "creative",
@@ -832,7 +1135,12 @@
                   "Parent: Let’s design your own badge.",
                   "Parent: What colours will you use?",
                   "Child: Blue and yellow."
-                ]
+                ],
+                quiz: {
+                  question: "What can be on a police badge?",
+                  options: ["Stars or shields", "Food", "Random scribbles only"],
+                  correctIndex: 0
+                }
               },
               {
                 id: "world",
@@ -844,201 +1152,442 @@
                   "Parent: Is this safe or not safe?",
                   "Child: Not safe.",
                   "Parent: What should we do instead?"
-                ]
+                ],
+                quiz: {
+                  question: "Which picture shows safe behaviour?",
+                  options: [
+                    "Running on the road",
+                    "Crossing at the crosswalk",
+                    "Standing in the middle of the street"
+                  ],
+                  correctIndex: 1
+                }
               }
             ]
           },
+
+          /* ---------- MONDAY ---------- */
           mon: {
             title: "Hospital Day – LEGO City Ambulance",
             activities: [
-              { id:"eng", domain:"English Speaking & Listening", title:"At the hospital", pdf:"pdf/w1-mon-english-hospital-story.pdf",
-                desc:"Картинки приёмного отделения, ребёнок описывает, кто что делает.",
-                dialog:[
+              {
+                id: "eng",
+                domain: "English Speaking & Listening",
+                title: "At the hospital",
+                pdf: "pdf/w1-mon-english-hospital-story.pdf",
+                desc: "Картинки приёмного отделения, ребёнок описывает, кто что делает.",
+                dialog: [
                   "Parent: Who can you see here?",
                   "Child: A doctor and a patient.",
-                  "Parent: What is the doctor doing?"
-                ]},
-              { id:"social", domain:"Social Confidence / Group Interaction", title:"Doctor & patient role play",
-                pdf:"pdf/w1-mon-social-doctor-dialogue.pdf",
-                desc:"Диалог по картам-ролям, отрабатываем вежливые фразы.",
-                dialog:[
+                  "Parent: What is the doctor doing?",
+                  "Child: He is helping.",
+                  "Parent: How does the patient feel?"
+                ],
+                quiz: {
+                  question: "Which sentence is best?",
+                  options: [
+                    "Doctor help.",
+                    "The doctor is helping the patient.",
+                    "Patient bad."
+                  ],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "social",
+                domain: "Social Confidence / Group Interaction",
+                title: "Doctor & patient role play",
+                pdf: "pdf/w1-mon-social-doctor-dialogue.pdf",
+                desc: "Диалог по картам-ролям, отрабатываем вежливые фразы и ответы.",
+                dialog: [
                   "Parent (doctor): “Hello, how are you today?”",
                   "Child (patient): “I feel a little sick.”",
-                  "Parent: “I will help you. Can you show me where it hurts?”"
-                ]},
-              { id:"motor", domain:"Fine Motor Skills / Early Writing", title:"Trace the medical paths",
-                pdf:"pdf/w1-mon-motor-hospital-lines.pdf",
-                desc:"Соединяем пациента и скорую пунктирными линиями, тренируем захват.",
-                dialog:[
+                  "Parent: “I will help you. Can you show me where it hurts?”",
+                  "Child: “Here.”"
+                ],
+                quiz: {
+                  question: "What is a polite answer to “How are you today?”",
+                  options: [
+                    "“Go away.”",
+                    "“I feel a little sick.”",
+                    "“Car!”"
+                  ],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "motor",
+                domain: "Fine Motor Skills / Early Writing",
+                title: "Trace the medical paths",
+                pdf: "pdf/w1-mon-motor-hospital-lines.pdf",
+                desc: "Соединяем пациента и скорую пунктирными линиями, тренируем захват.",
+                dialog: [
                   "Parent: Hold your pencil like this.",
-                  "Parent: Let’s help the ambulance reach the hospital."
-                ]},
-              { id:"maths", domain:"Maths (Numbers & Shapes)", title:"Count the hearts",
-                pdf:"pdf/w1-mon-maths-hearts-count.pdf",
-                desc:"Считаем сердечки на мониторе, сравниваем: больше/меньше.",
-                dialog:[
+                  "Parent: Let’s help the ambulance reach the hospital.",
+                  "Parent: Great! Try to stay on the dotted line."
+                ],
+                quiz: {
+                  question: "Which grip is better for writing?",
+                  options: ["Full fist", "Three-finger pinch", "Holding at the eraser"],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "maths",
+                domain: "Maths (Numbers & Shapes)",
+                title: "Count the hearts",
+                pdf: "pdf/w1-mon-maths-hearts-count.pdf",
+                desc: "Считаем сердечки на мониторе, сравниваем: больше/меньше.",
+                dialog: [
                   "Parent: How many hearts here?",
                   "Parent: Is it more or less than on the other screen?"
-                ]},
-              { id:"slovene", domain:"Slovene Language", title:"Pri zdravniku",
-                pdf:"pdf/w1-mon-slovene-doctor.pdf",
-                desc:"Простые фразы: boli me roka, glava, trebuh.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "If one screen has 4 hearts and another has 2, which has more?",
+                  options: ["4", "2", "They are same"],
+                  correctIndex: 0
+                }
+              },
+              {
+                id: "slovene",
+                domain: "Slovene Language",
+                title: "Pri zdravniku",
+                pdf: "pdf/w1-mon-slovene-doctor.pdf",
+                desc: "Простые фразы: boli me roka, glava, trebuh.",
+                dialog: [
                   "Parent: Kako se počutiš?",
                   "Child: Boli me roka.",
                   "Parent: Dobro, pogledali bomo roko."
-                ]},
-              { id:"creative", domain:"Creative Development (Art & Role Play)", title:"Draw a brave helper",
-                pdf:"pdf/w1-mon-creative-helper-template.pdf",
-                desc:"Шаблон для рисунка «Мой герой: доктор/медсестра/пожарный».",
-                dialog:[
+                ],
+                quiz: {
+                  question: "Kaj pomeni ‘Boli me roka’?",
+                  options: [
+                    "У меня болит рука",
+                    "Я хочу играть",
+                    "Мне холодно"
+                  ],
+                  correctIndex: 0
+                }
+              },
+              {
+                id: "creative",
+                domain: "Creative Development (Art & Role Play)",
+                title: "Draw a brave helper",
+                pdf: "pdf/w1-mon-creative-helper-template.pdf",
+                desc: "Шаблон для рисунка «Мой герой: доктор/медсестра/пожарный».",
+                dialog: [
                   "Parent: Who is your hero today?",
                   "Child: Doctor.",
                   "Parent: What tools does your hero need?"
-                ]},
-              { id:"world", domain:"Understanding the World", title:"Who works in a hospital?",
-                pdf:"pdf/w1-mon-world-hospital-people.pdf",
-                desc:"Сопоставляем людей и их роли: doctor, nurse, driver.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "What tool does a doctor often use?",
+                  options: ["Stethoscope", "Steering wheel", "Paint brush"],
+                  correctIndex: 0
+                }
+              },
+              {
+                id: "world",
+                domain: "Understanding the World",
+                title: "Who works in a hospital?",
+                pdf: "pdf/w1-mon-world-hospital-people.pdf",
+                desc: "Сопоставляем людей и их роли: doctor, nurse, driver.",
+                dialog: [
                   "Parent: Who drives the ambulance?",
                   "Child: The driver.",
                   "Parent: Who helps the patient in the room?"
-                ]}
+                ],
+                quiz: {
+                  question: "Who helps inside the hospital room?",
+                  options: ["Firefighter", "Doctor or nurse", "Police officer"],
+                  correctIndex: 1
+                }
+              }
             ]
           },
+
+          /* ---------- TUESDAY ---------- */
           tue: {
             title: "Rescue Day – Helicopter & Mountain",
             activities: [
-              { id:"eng", domain:"English Speaking & Listening", title:"Mountain rescue story",
-                pdf:"pdf/w1-tue-english-mountain-story.pdf",
-                desc:"Последовательность картинок, ребёнок описывает начало–середину–конец.",
-                dialog:[
+              {
+                id: "eng",
+                domain: "English Speaking & Listening",
+                title: "Mountain rescue story",
+                pdf: "pdf/w1-tue-english-mountain-story.pdf",
+                desc: "Последовательность картинок: человек на горе, вертолёт, спасение.",
+                dialog: [
                   "Parent: First, what happens?",
                   "Child: The man is on the mountain.",
-                  "Parent: And then? And finally?"
-                ]},
-              { id:"social", domain:"Social Confidence / Group Interaction", title:"Team talk in the helicopter",
-                pdf:"pdf/w1-tue-social-helicopter-team.pdf",
-                desc:"Диалог в команде: просим о помощи, отвечаем «Yes, I can».",
-                dialog:[
+                  "Parent: And then?",
+                  "Child: The helicopter comes.",
+                  "Parent: And finally?",
+                  "Child: They are safe."
+                ],
+                quiz: {
+                  question: "Which is a good “first–then–finally” order?",
+                  options: [
+                    "Safe – helicopter – mountain",
+                    "Mountain – helicopter – safe",
+                    "Helicopter – safe – mountain"
+                  ],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "social",
+                domain: "Social Confidence / Group Interaction",
+                title: "Team talk in the helicopter",
+                pdf: "pdf/w1-tue-social-helicopter-team.pdf",
+                desc: "Диалог в команде: просим о помощи, отвечаем «Yes, I can».",
+                dialog: [
                   "Parent: “Petr, can you help with the rope?”",
                   "Child: “Yes, I can help.”",
                   "Parent: “Thank you, team!”"
-                ]},
-              { id:"motor", domain:"Fine Motor Skills / Early Writing", title:"Spiral flight path",
-                pdf:"pdf/w1-tue-motor-spiral-path.pdf",
-                desc:"Спиральные линии – вертолёт поднимается и спускается.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "What is a good team answer?",
+                  options: [
+                    "“I don’t care.”",
+                    "“Yes, I can help.”",
+                    "“No words.”"
+                  ],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "motor",
+                domain: "Fine Motor Skills / Early Writing",
+                title: "Spiral flight path",
+                pdf: "pdf/w1-tue-motor-spiral-path.pdf",
+                desc: "Спиральные линии – вертолет поднимается и спускается.",
+                dialog: [
                   "Parent: Let’s fly up, up, up along the spiral.",
                   "Parent: Now slowly down."
-                ]},
-              { id:"maths", domain:"Maths (Numbers & Shapes)", title:"Mountain numbers",
-                pdf:"pdf/w1-tue-maths-mountain-steps.pdf",
-                desc:"Ступеньки с цифрами 1–10, ребёнок обводит и проговаривает.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "How should we move the pencil?",
+                  options: ["Fast and scribbly", "Slow and smooth", "Not on the line"],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "maths",
+                domain: "Maths (Numbers & Shapes)",
+                title: "Mountain numbers",
+                pdf: "pdf/w1-tue-maths-mountain-steps.pdf",
+                desc: "Ступеньки с цифрами 1–10, ребёнок обводит и проговаривает.",
+                dialog: [
                   "Parent: Step 1, step 2… Can you climb to 10?",
                   "Child: One, two, three…"
-                ]},
-              { id:"slovene", domain:"Slovene Language", title:"Na gori",
-                pdf:"pdf/w1-tue-slovene-mountain.pdf",
-                desc:"Слова: gora, helikopter, človek. Простые предложения.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "What comes after 4?",
+                  options: ["3", "5", "7"],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "slovene",
+                domain: "Slovene Language",
+                title: "Na gori",
+                pdf: "pdf/w1-tue-slovene-mountain.pdf",
+                desc: "Слова: gora, helikopter, človek. Простые предложения.",
+                dialog: [
                   "Parent: Kaj je to?",
                   "Child: To je helikopter.",
                   "Parent: Kje je človek?",
                   "Child: Na gori."
-                ]},
-              { id:"creative", domain:"Creative Development (Art & Role Play)", title:"Build a rescue scene",
-                pdf:"pdf/w1-tue-creative-rescue-idea.pdf",
-                desc:"Идея для постройки горы и вертолёта из LEGO.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "Kaj pomeni ‘gora’?",
+                  options: ["Город", "Гора", "Машина"],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "creative",
+                domain: "Creative Development (Art & Role Play)",
+                title: "Build a rescue scene",
+                pdf: "pdf/w1-tue-creative-rescue-idea.pdf",
+                desc: "Идея для постройки горы и вертолёта из LEGO.",
+                dialog: [
                   "Parent: Where will the helicopter land?",
                   "Parent: Can you add a safe place for people?"
-                ]},
-              { id:"world", domain:"Understanding the World", title:"Weather on the mountain",
-                pdf:"pdf/w1-tue-world-weather-cards.pdf",
-                desc:"Картинки разной погоды, выбираем подходящую для гор.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "What is important in a rescue scene?",
+                  options: ["Safe landing place", "Random holes", "No space"],
+                  correctIndex: 0
+                }
+              },
+              {
+                id: "world",
+                domain: "Understanding the World",
+                title: "Weather on the mountain",
+                pdf: "pdf/w1-tue-world-weather-cards.pdf",
+                desc: "Картинки разной погоды, выбираем подходящую для гор.",
+                dialog: [
                   "Parent: Is it sunny or windy on this picture?",
                   "Parent: Which weather is safe for flying?"
-                ]}
+                ],
+                quiz: {
+                  question: "Which weather is safer for flying?",
+                  options: ["Storm", "Calm and clear", "Heavy snow"],
+                  correctIndex: 1
+                }
+              }
             ]
           },
+
+          /* ---------- WEDNESDAY ---------- */
           wed: {
             title: "City Mix Day – All Heroes Together",
             activities: [
-              { id:"eng", domain:"English Speaking & Listening", title:"My favourite city hero",
-                pdf:"pdf/w1-wed-english-favourite-hero.pdf",
-                desc:"Ребёнок выбирает героя и заполняет простые предложения.",
-                dialog:[
+              {
+                id: "eng",
+                domain: "English Speaking & Listening",
+                title: "My favourite city hero",
+                pdf: "pdf/w1-wed-english-favourite-hero.pdf",
+                desc: "Ребёнок выбирает героя и заполняет простые предложения.",
+                dialog: [
                   "Parent: Who is your favourite hero?",
                   "Child: My favourite hero is the firefighter.",
-                  "Parent: Why do you like him?"
-                ]},
-              { id:"social", domain:"Social Confidence / Group Interaction", title:"City meeting role play",
-                pdf:"pdf/w1-wed-social-heroes-meeting.pdf",
-                desc:"Все герои собираются и обсуждают, как помочь городу.",
-                dialog:[
+                  "Parent: Why do you like him?",
+                  "Child: He helps people."
+                ],
+                quiz: {
+                  question: "Which sentence is complete?",
+                  options: [
+                    "My favourite hero firefighter.",
+                    "My favourite hero is the firefighter.",
+                    "Favourite hero is."
+                  ],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "social",
+                domain: "Social Confidence / Group Interaction",
+                title: "City meeting role play",
+                pdf: "pdf/w1-wed-social-heroes-meeting.pdf",
+                desc: "Все герои собираются и обсуждают, как помочь городу.",
+                dialog: [
                   "Parent (mayor): “Thank you for coming!”",
-                  "Parent: “Petr, what can your hero do to help the city?”"
-                ]},
-              { id:"motor", domain:"Fine Motor Skills / Early Writing", title:"City map tracing",
-                pdf:"pdf/w1-wed-motor-city-map.pdf",
-                desc:"Обводим дороги, мосты, реку, соединяя важные места.",
-                dialog:[
+                  "Parent: “Petr, what can your hero do to help the city?”",
+                  "Child: “He can stop fires / help people.”"
+                ],
+                quiz: {
+                  question: "What is a nice way to start a group talk?",
+                  options: [
+                    "“Go away everyone.”",
+                    "“Thank you for coming!”",
+                    "“Be quiet!”"
+                  ],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "motor",
+                domain: "Fine Motor Skills / Early Writing",
+                title: "City map tracing",
+                pdf: "pdf/w1-wed-motor-city-map.pdf",
+                desc: "Обводим дороги, мосты, реку, соединяя важные места.",
+                dialog: [
                   "Parent: Let’s draw a safe road from home to the station.",
                   "Parent: Try to stay inside the line."
-                ]},
-              { id:"maths", domain:"Maths (Numbers & Shapes)", title:"City numbers & shapes",
-                pdf:"pdf/w1-wed-maths-city-mix.pdf",
-                desc:"Считаем дома, машины, ищем и называем формы.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "Where should roads go?",
+                  options: ["Through houses", "Around houses and buildings", "Outside the page"],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "maths",
+                domain: "Maths (Numbers & Shapes)",
+                title: "City numbers & shapes",
+                pdf: "pdf/w1-wed-maths-city-mix.pdf",
+                desc: "Считаем дома, машины, ищем и называем формы.",
+                dialog: [
                   "Parent: How many squares can you find?",
                   "Parent: Show me three circles."
-                ]},
-              { id:"slovene", domain:"Slovene Language", title:"Moje mesto",
-                pdf:"pdf/w1-wed-slovene-my-city.pdf",
-                desc:"Простые предложения о городе: To je hiša, To je most.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "Which is a circle?",
+                  options: ["⬛", "⚪", "🔺"],
+                  correctIndex: 1
+                }
+              },
+              {
+                id: "slovene",
+                domain: "Slovene Language",
+                title: "Moje mesto",
+                pdf: "pdf/w1-wed-slovene-my-city.pdf",
+                desc: "Простые предложения о городе: To je hiša, To je most.",
+                dialog: [
                   "Parent: Kaj je to?",
                   "Child: To je hiša.",
                   "Parent: Super! In to?",
                   "Child: To je most."
-                ]},
-              { id:"creative", domain:"Creative Development (Art & Role Play)", title:"Draw your LEGO City",
-                pdf:"pdf/w1-wed-creative-my-city-template.pdf",
-                desc:"Лист с рамкой и подсказками, ребёнок рисует свой город.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "Kaj pomeni ‘hiša’?",
+                  options: ["Дом", "Мост", "Машина"],
+                  correctIndex: 0
+                }
+              },
+              {
+                id: "creative",
+                domain: "Creative Development (Art & Role Play)",
+                title: "Draw your LEGO City",
+                pdf: "pdf/w1-wed-creative-my-city-template.pdf",
+                desc: "Лист с рамкой и подсказками, ребёнок рисует свой город.",
+                dialog: [
                   "Parent: Where is the fire station in your city?",
                   "Parent: Where do you live in this picture?"
-                ]},
-              { id:"world", domain:"Understanding the World", title:"Who helps in the city?",
-                pdf:"pdf/w1-wed-world-city-helpers.pdf",
-                desc:"Соединяем профессии и места: firefighter–station, doctor–hospital.",
-                dialog:[
+                ],
+                quiz: {
+                  question: "What can we add to a city picture?",
+                  options: ["Houses and roads", "Random scribbles", "Only one dot"],
+                  correctIndex: 0
+                }
+              },
+              {
+                id: "world",
+                domain: "Understanding the World",
+                title: "Who helps in the city?",
+                pdf: "pdf/w1-wed-world-city-helpers.pdf",
+                desc: "Соединяем профессии и места: firefighter–station, doctor–hospital.",
+                dialog: [
                   "Parent: Who works in the hospital?",
                   "Child: Doctor.",
                   "Parent: And who works at the fire station?"
-                ]}
+                ],
+                quiz: {
+                  question: "Who works at the fire station?",
+                  options: ["Doctor", "Firefighter", "Pilot"],
+                  correctIndex: 1
+                }
+              }
             ]
           }
         }
       },
 
-      // Остальные недели – в том же формате, но без длинных диалогов, чтобы код не разрастался до бесконечности.
+      // Остальные недели используют ту же структуру (можно потом заменить содержимое на свои темы)
       week2: { label: "Week 2 – City Vehicles", englishPhrases: [], slovenePhrases: [], days: {} },
       week3: { label: "Week 3 – City Jobs", englishPhrases: [], slovenePhrases: [], days: {} },
       week4: { label: "Week 4 – City Adventures", englishPhrases: [], slovenePhrases: [], days: {} }
     };
 
-    // Для простоты заполним недели 2–4 теми же миссиями, что и Week1, но с изменённой подписью недели:
     ["week2", "week3", "week4"].forEach((wkKey) => {
       PROGRAM[wkKey].days = PROGRAM.week1.days;
       PROGRAM[wkKey].englishPhrases = PROGRAM.week1.englishPhrases;
       PROGRAM[wkKey].slovenePhrases = PROGRAM.week1.slovenePhrases;
     });
 
-    // === State ===
+    // === STATE ===
     let state = loadState();
 
     childNameInput.value = state.childName || "Petr";
@@ -1046,14 +1595,20 @@
     weekSelect.value = state.week || "week1";
     daySelect.value = state.day || "sat";
 
+    // audio
+    const audioPhrase = new Audio();
+    const audioClick = new Audio();
+    const audioSuccess = new Audio();
+
+    audioClick.src = "audio/click.mp3";
+    audioSuccess.src = "audio/success.mp3";
+
     renderPhrases();
     renderDay();
     notesArea.value = (state.notes[state.week] || {})[state.day] || "";
 
-    // Shared audio element for phrases
-    const audioEl = new Audio();
+    // EVENTS
 
-    // Events
     childNameInput.addEventListener("input", () => {
       state.childName = childNameInput.value.trim();
       childLabel.textContent = state.childName || "Petr";
@@ -1063,6 +1618,7 @@
     weekSelect.addEventListener("change", () => {
       state.week = weekSelect.value;
       saveState();
+      playClick();
       renderPhrases();
       renderDay();
       notesArea.value = (state.notes[state.week] || {})[state.day] || "";
@@ -1071,6 +1627,7 @@
     daySelect.addEventListener("change", () => {
       state.day = daySelect.value;
       saveState();
+      playClick();
       renderDay();
       notesArea.value = (state.notes[state.week] || {})[state.day] || "";
     });
@@ -1081,10 +1638,21 @@
       saveState();
     });
 
+    startQuestsBtn.addEventListener("click", () => {
+      playClick();
+      questsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    scrollToPhrasesBtn.addEventListener("click", () => {
+      playClick();
+      phrasesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // === RENDER PHRASES ===
+
     function renderPhrases() {
       const weekData = PROGRAM[weekSelect.value];
       phrasesWeekLabel.textContent = weekData.label;
-
       englishPhrasesEl.innerHTML = "";
       slovenePhrasesEl.innerHTML = "";
 
@@ -1109,12 +1677,13 @@
 
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "btn btn-primary";
+      btn.className = "btn-circle";
       btn.textContent = "▶ Play";
       btn.addEventListener("click", () => {
+        playClick();
         const src = `audio/${phrase.id}.mp3`;
-        audioEl.src = src;
-        audioEl.play().catch(() => {
+        audioPhrase.src = src;
+        audioPhrase.play().catch(() => {
           alert("Audio file not found yet. Please upload " + src + " to the repository.");
         });
       });
@@ -1127,7 +1696,7 @@
       tr.textContent = phrase.translation;
 
       const tip = document.createElement("div");
-      tip.className = "small-text";
+      tip.className = "phrase-tip";
       tip.textContent = phrase.tip || "";
 
       card.appendChild(header);
@@ -1136,6 +1705,8 @@
 
       return card;
     }
+
+    // === RENDER DAY & QUESTS ===
 
     function renderDay() {
       const weekKey = weekSelect.value;
@@ -1146,112 +1717,248 @@
       dayLabel.textContent = `${DAYS_LABEL[dayKey]} · ${dayData.title}`;
       missionsGrid.innerHTML = "";
 
-      dayData.activities.forEach((act) => {
-        const card = document.createElement("div");
-        card.className = "mission-card";
+      const activities = dayData.activities;
+      updateQuestDots(activities);
 
-        const domainEl = document.createElement("div");
-        domainEl.className = "mission-domain";
-        domainEl.textContent = act.domain;
+      if (!activities || !activities.length) {
+        const p = document.createElement("p");
+        p.className = "small-text";
+        p.textContent = "This day has no detailed quests yet. You can add your own PDFs and games later.";
+        missionsGrid.appendChild(p);
+        totalMissionsEl.textContent = "0";
+        doneCountEl.textContent = "0";
+        checkedCountEl.textContent = "0";
+        progressBarEl.style.width = "0%";
+        return;
+      }
 
-        const titleEl = document.createElement("div");
-        titleEl.className = "mission-title";
-        titleEl.textContent = act.title;
-
-        const descEl = document.createElement("div");
-        descEl.className = "mission-desc";
-        descEl.textContent = act.desc;
-
-        const actions = document.createElement("div");
-        actions.className = "mission-actions";
-
-        const link = document.createElement("a");
-        link.className = "btn btn-primary";
-        link.href = act.pdf;
-        link.target = "_blank";
-        link.rel = "noopener";
-        link.textContent = "Download PDF";
-
-        const hintBtn = document.createElement("button");
-        hintBtn.type = "button";
-        hintBtn.className = "btn btn-ghost";
-        hintBtn.textContent = "PDF path";
-        hintBtn.addEventListener("click", () => {
-          alert("Upload the PDF for this task to:\n" + act.pdf);
-        });
-
-        actions.appendChild(link);
-        actions.appendChild(hintBtn);
-
-        const status = document.createElement("div");
-        status.className = "mission-status";
-
-        const actState = getActivityState(weekKey, dayKey, act.id);
-
-        const doneLabel = document.createElement("label");
-        const doneCheckbox = document.createElement("input");
-        doneCheckbox.type = "checkbox";
-        doneCheckbox.checked = !!actState.done;
-        doneLabel.appendChild(doneCheckbox);
-        doneLabel.append(" Done by child");
-
-        const checkedLabel = document.createElement("label");
-        const checkedCheckbox = document.createElement("input");
-        checkedCheckbox.type = "checkbox";
-        checkedCheckbox.checked = !!actState.checked;
-        checkedLabel.appendChild(checkedCheckbox);
-        checkedLabel.append(" Checked by parent");
-
-        doneCheckbox.addEventListener("change", () => {
-          actState.done = doneCheckbox.checked;
-          if (!actState.done && actState.checked) {
-            actState.checked = false;
-            checkedCheckbox.checked = false;
-          }
-          saveState();
-          updateSummary(weekKey, dayKey);
-        });
-
-        checkedCheckbox.addEventListener("change", () => {
-          actState.checked = checkedCheckbox.checked;
-          if (actState.checked && !actState.done) {
-            actState.done = true;
-            doneCheckbox.checked = true;
-          }
-          saveState();
-          updateSummary(weekKey, dayKey);
-        });
-
-        status.appendChild(doneLabel);
-        status.appendChild(checkedLabel);
-
-        const details = document.createElement("details");
-        const summary = document.createElement("summary");
-        summary.textContent = "Parent dialogue idea";
-        details.appendChild(summary);
-
-        const dialogText = document.createElement("div");
-        dialogText.className = "small-text";
-        dialogText.innerHTML = (act.dialog || [])
-          .map((line) => line.replace(/Parent/g, "<strong>Parent</strong>").replace(/Child/g, "<strong>Child</strong>"))
-          .join("<br>");
-        details.appendChild(dialogText);
-
-        card.appendChild(domainEl);
-        card.appendChild(titleEl);
-        card.appendChild(descEl);
-        card.appendChild(actions);
-        card.appendChild(status);
-        card.appendChild(details);
-
-        missionsGrid.appendChild(card);
+      activities.forEach((act, index) => {
+        missionsGrid.appendChild(createMissionCard(weekKey, dayKey, act, index));
       });
 
       updateSummary(weekKey, dayKey);
     }
 
+    function updateQuestDots(activities) {
+      questDots.innerHTML = "";
+      (activities || []).forEach((_, idx) => {
+        const dot = document.createElement("div");
+        dot.className = "quest-dot";
+        dot.textContent = idx + 1;
+        dot.dataset.index = idx;
+        questDots.appendChild(dot);
+      });
+    }
+
+    function createMissionCard(weekKey, dayKey, act, index) {
+      const card = document.createElement("div");
+      card.className = "mission-card";
+
+      const headerRow = document.createElement("div");
+      headerRow.className = "mission-header-row";
+
+      const icon = document.createElement("div");
+      icon.className = "mission-icon";
+      icon.textContent = DOMAIN_ICONS[act.domain] || "⭐";
+
+      const headerText = document.createElement("div");
+
+      const domainEl = document.createElement("div");
+      domainEl.className = "mission-domain";
+      domainEl.textContent = act.domain;
+
+      const titleEl = document.createElement("div");
+      titleEl.className = "mission-title";
+      titleEl.textContent = act.title;
+
+      headerText.appendChild(domainEl);
+      headerText.appendChild(titleEl);
+
+      headerRow.appendChild(icon);
+      headerRow.appendChild(headerText);
+
+      const descEl = document.createElement("div");
+      descEl.className = "mission-desc";
+      descEl.textContent = act.desc;
+
+      const actions = document.createElement("div");
+      actions.className = "mission-actions";
+
+      const pdfBtn = document.createElement("a");
+      pdfBtn.className = "btn quest-btn";
+      pdfBtn.href = act.pdf;
+      pdfBtn.target = "_blank";
+      pdfBtn.rel = "noopener";
+      pdfBtn.innerHTML = "<span>📄</span> Open PDF";
+      pdfBtn.addEventListener("click", () => playClick());
+
+      const hintBtn = document.createElement("button");
+      hintBtn.type = "button";
+      hintBtn.className = "quest-btn";
+      hintBtn.innerHTML = "<span>ℹ️</span> PDF path";
+      hintBtn.addEventListener("click", () => {
+        playClick();
+        alert("Upload the PDF for this quest to:\n" + act.pdf);
+      });
+
+      const questBtn = document.createElement("button");
+      questBtn.type = "button";
+      questBtn.className = "quest-btn";
+      questBtn.innerHTML = "<span>🎮</span> Start quest";
+      questBtn.addEventListener("click", () => {
+        playClick();
+        // просто сфокусироваться на карточке и визуально её выделить
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+        card.style.boxShadow = "0 0 0 3px #facc15";
+        setTimeout(() => {
+          card.style.boxShadow = "";
+        }, 800);
+      });
+
+      actions.appendChild(pdfBtn);
+      actions.appendChild(questBtn);
+      actions.appendChild(hintBtn);
+
+      const status = document.createElement("div");
+      status.className = "mission-status";
+
+      const actState = getActivityState(weekKey, dayKey, act.id);
+
+      const doneLabel = document.createElement("label");
+      const doneCheckbox = document.createElement("input");
+      doneCheckbox.type = "checkbox";
+      doneCheckbox.checked = !!actState.done;
+      doneLabel.appendChild(doneCheckbox);
+      doneLabel.append(" Done by child");
+
+      const checkedLabel = document.createElement("label");
+      const checkedCheckbox = document.createElement("input");
+      checkedCheckbox.type = "checkbox";
+      checkedCheckbox.checked = !!actState.checked;
+      checkedLabel.appendChild(checkedCheckbox);
+      checkedLabel.append(" Checked by parent");
+
+      doneCheckbox.addEventListener("change", () => {
+        actState.done = doneCheckbox.checked;
+        if (!actState.done && actState.checked) {
+          actState.checked = false;
+          checkedCheckbox.checked = false;
+        }
+        playClick();
+        saveState();
+        updateSummary(weekKey, dayKey);
+        updateQuestDotCompletion(index, actState);
+      });
+
+      checkedCheckbox.addEventListener("change", () => {
+        actState.checked = checkedCheckbox.checked;
+        if (actState.checked && !actState.done) {
+          actState.done = true;
+          doneCheckbox.checked = true;
+        }
+        playClick();
+        if (actState.checked) playSuccess();
+        saveState();
+        updateSummary(weekKey, dayKey);
+        updateQuestDotCompletion(index, actState);
+      });
+
+      status.appendChild(doneLabel);
+      status.appendChild(checkedLabel);
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      summary.textContent = "Parent dialogue idea";
+      details.appendChild(summary);
+
+      const dialogText = document.createElement("div");
+      dialogText.className = "dialog-text";
+      dialogText.innerHTML = (act.dialog || [])
+        .map((line) =>
+          line
+            .replace(/Parent/g, "<strong>Parent</strong>")
+            .replace(/Child/g, "<strong>Child</strong>")
+        )
+        .join("<br>");
+      details.appendChild(dialogText);
+
+      const quizBlock = createQuizBlock(act.quiz);
+
+      card.appendChild(headerRow);
+      card.appendChild(descEl);
+      card.appendChild(actions);
+      card.appendChild(status);
+      card.appendChild(details);
+      if (quizBlock) card.appendChild(quizBlock);
+
+      // initial dot state
+      updateQuestDotCompletion(index, actState);
+
+      return card;
+    }
+
+    function createQuizBlock(quiz) {
+      if (!quiz) return null;
+
+      const block = document.createElement("div");
+      block.className = "quiz-block";
+
+      const q = document.createElement("div");
+      q.className = "quiz-question";
+      q.textContent = quiz.question;
+
+      const optsWrap = document.createElement("div");
+      optsWrap.className = "quiz-options";
+
+      const feedback = document.createElement("div");
+      feedback.className = "quiz-feedback";
+
+      quiz.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "quiz-option-btn";
+        btn.textContent = opt;
+        btn.addEventListener("click", () => {
+          playClick();
+          // сброс классов
+          Array.from(optsWrap.children).forEach((c) => {
+            c.classList.remove("correct", "wrong");
+          });
+          if (idx === quiz.correctIndex) {
+            btn.classList.add("correct");
+            feedback.textContent = "Great! ⭐";
+            feedback.classList.add("ok");
+            feedback.classList.remove("bad");
+            playSuccess();
+          } else {
+            btn.classList.add("wrong");
+            feedback.textContent = "Try again.";
+            feedback.classList.add("bad");
+            feedback.classList.remove("ok");
+          }
+        });
+        optsWrap.appendChild(btn);
+      });
+
+      block.appendChild(q);
+      block.appendChild(optsWrap);
+      block.appendChild(feedback);
+
+      return block;
+    }
+
+    function updateQuestDotCompletion(index, actState) {
+      const dot = questDots.querySelector(`.quest-dot[data-index="${index}"]`);
+      if (!dot) return;
+      if (actState.checked) {
+        dot.classList.add("completed");
+      } else {
+        dot.classList.remove("completed");
+      }
+    }
+
     function updateSummary(weekKey, dayKey) {
-      const acts = PROGRAM[weekKey].days[dayKey].activities;
+      const acts = PROGRAM[weekKey].days[dayKey].activities || [];
       const total = acts.length;
       let done = 0;
       let checked = 0;
@@ -1268,6 +1975,8 @@
       const percent = total ? Math.round((checked / total) * 100) : 0;
       progressBarEl.style.width = percent + "%";
     }
+
+    // === STATE HELPERS ===
 
     function getActivityState(weekKey, dayKey, actId) {
       if (!state.activities[weekKey]) state.activities[weekKey] = {};
@@ -1310,6 +2019,20 @@
 
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    // === SOUNDS ===
+
+    function playClick() {
+      if (!audioClick.src) return;
+      audioClick.currentTime = 0;
+      audioClick.play().catch(() => {});
+    }
+
+    function playSuccess() {
+      if (!audioSuccess.src) return;
+      audioSuccess.currentTime = 0;
+      audioSuccess.play().catch(() => {});
     }
   })();
 </script>
