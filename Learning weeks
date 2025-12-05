@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Robot Learning Week – Tasks Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f6fb;
+      color: #1f2933;
+    }
+
+    header {
+      padding: 1rem 1.5rem;
+      background: linear-gradient(90deg, #0ea5e9, #6366f1);
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    header small {
+      display: block;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .top-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: #111827;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+      border-radius: 0.6rem;
+      border: 1px solid #d1d5db;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.9rem;
+      background: white;
+      min-width: 0;
+    }
+
+    main {
+      padding: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      white-space: nowrap;
+    }
+
+    .task-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr) auto;
+      gap: 0.5rem;
+      align-items: end;
+      margin-bottom: 0.75rem;
+    }
+
+    @media (max-width: 700px) {
+      .task-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    button.primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    button.secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    button.danger {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .tasks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 420px;
+      overflow: auto;
+      padding-right: 0.25rem;
+    }
+
+    .task-item {
+      border-radius: 0.8rem;
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem 0.6rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2.5fr) minmax(0, 2.2fr) auto;
+      gap: 0.4rem;
+      align-items: center;
+      background: #f9fafb;
+    }
+
+    @media (max-width: 700px) {
+      .task-item {
+        grid-template-columns: 1.7fr;
+      }
+    }
+
+    .task-main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .task-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .task-domain {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .task-status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      align-items: center;
+    }
+
+    .task-status label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .task-status input[type="checkbox"] {
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+
+    .progress-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .progress-bar-wrapper {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+      margin: 0.2rem 0 0.4rem;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      transition: width 0.2s ease-out;
+    }
+
+    .small-text {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .domain-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .domain-chip {
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid #e5e7eb;
+      background: #f3f4f6;
+    }
+
+    .domain-chip strong {
+      font-weight: 600;
+    }
+
+    .muted {
+      opacity: 0.8;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Reports section */
+    .reports-layout {
+      margin-top: 1rem;
+    }
+
+    .report-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .report-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+
+    .report-table th,
+    .report-table td {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.25rem 0.4rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .report-table th {
+      font-weight: 600;
+      background: #f9fafb;
+    }
+
+    .report-section-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .text-report-block {
+      margin-top: 0.5rem;
+    }
+
+    .text-report-block textarea {
+      width: 100%;
+      resize: vertical;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Robot Learning Week – Tasks Tracker</h1>
+    <small>Daily activities, progress & completed missions</small>
+  </div>
+  <div class="top-controls">
+    <div>
+      <label>
+        Child name:
+        <input type="text" id="childName" placeholder="Petr" />
+      </label>
+    </div>
+    <div>
+      <label>
+        Date:
+        <input type="date" id="datePicker" />
+      </label>
+    </div>
+    <button class="secondary" id="newDayTemplateBtn">Use daily template</button>
+  </div>
+</header>
+
+<main>
+  <div class="layout">
+    <!-- Left: tasks -->
+    <section class="card">
+      <h2>
+        Tasks for this day
+        <span class="badge" id="selectedDayLabel"></span>
+      </h2>
+
+      <form class="task-form" id="taskForm">
+        <div>
+          <label for="taskTitle">New task</label><br />
+          <input
+            type="text"
+            id="taskTitle"
+            required
+            placeholder="e.g. Robot sees a big red ball – reading"
+          />
+        </div>
+        <div>
+          <label for="taskDomain">Domain</label><br />
+          <select id="taskDomain">
+            <option value="English Speaking & Listening">English Speaking & Listening</option>
+            <option value="Social Confidence / Group Interaction">Social Confidence / Group Interaction</option>
+            <option value="Fine Motor Skills / Early Writing">Fine Motor Skills / Early Writing</option>
+            <option value="Maths (Numbers & Shapes)">Maths (Numbers & Shapes)</option>
+            <option value="Slovene Language">Slovene Language</option>
+            <option value="Creative Development">Creative Development</option>
+            <option value="Understanding the World">Understanding the World</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit" class="primary">+ Add task</button>
+        </div>
+      </form>
+
+      <div class="tasks-list" id="tasksList">
+        <!-- tasks rendered here -->
+      </div>
+    </section>
+
+    <!-- Right: progress -->
+    <aside class="card">
+      <h2>
+        Progress & summary
+        <span class="badge muted" id="childLabel"></span>
+      </h2>
+
+      <div class="progress-summary">
+        <div>
+          Tasks today: <strong id="totalTasks">0</strong><br />
+          Completed by child: <strong id="doneByChild">0</strong><br />
+          Checked by parent: <strong id="checkedByParent">0</strong>
+        </div>
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="small-text">
+          Parent progress is calculated as
+          <em>(checked by parent ÷ total tasks)</em>.
+        </div>
+      </div>
+
+      <hr />
+
+      <div>
+        <strong>Domains covered today:</strong>
+        <div class="domain-list" id="domainsToday">
+          <!-- chips -->
+        </div>
+      </div>
+
+      <div>
+        <label for="notesArea">Notes for this day</label><br />
+        <textarea id="notesArea" rows="5" placeholder="Observations, child mood, ideas for next time…"></textarea>
+      </div>
+
+      <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <button class="primary" id="saveBtn">Save day</button>
+        <button class="secondary" id="loadBtn">Reload from storage</button>
+        <button class="danger" id="clearDayBtn">Clear this day</button>
+      </div>
+
+      <p class="small-text" style="margin-top:0.5rem;">
+        All data is stored locally in this browser (localStorage). No data is sent anywhere.
+      </p>
+    </aside>
+  </div>
+
+  <!-- Reports section -->
+  <section class="card reports-layout" id="reportsCard">
+    <h2>
+      Reports
+      <span class="badge muted">Overview across saved days</span>
+    </h2>
+    <p class="small-text">
+      This section summarises progress across all saved days. You can filter by month to get a “mini school report”.
+    </p>
+
+    <div class="report-controls">
+      <label>
+        Filter by month:
+        <select id="reportMonthSelect">
+          <option value="all">All dates</option>
+        </select>
+      </label>
+      <button class="secondary" id="refreshReportBtn" type="button">Refresh report</button>
+      <button class="primary" id="generateTextReportBtn" type="button">Generate report</button>
+    </div>
+
+    <div class="report-body">
+      <div id="reportOverview"></div>
+      <div id="reportByDomain"></div>
+      <div id="reportByDay"></div>
+
+      <div class="text-report-block">
+        <div class="report-section-title">Text report (copy & share)</div>
+        <textarea id="textReportOutput" rows="10" placeholder="Click &quot;Generate report&quot; to create a summary…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <p class="footer-note">
+    Robot Learning Week tracker – you can freely edit tasks, domains and notes to match your programme.
+  </p>
+</main>
+
+<script>
+  (function () {
+    const STORAGE_KEY = "robotLearningWeek_v1";
+
+    const childNameInput = document.getElementById("childName");
+    const datePicker = document.getElementById("datePicker");
+    const selectedDayLabel = document.getElementById("selectedDayLabel");
+    const childLabel = document.getElementById("childLabel");
+
+    const taskForm = document.getElementById("taskForm");
+    const taskTitleInput = document.getElementById("taskTitle");
+    const taskDomainSelect = document.getElementById("taskDomain");
+    const tasksListEl = document.getElementById("tasksList");
+
+    const totalTasksEl = document.getElementById("totalTasks");
+    const doneByChildEl = document.getElementById("doneByChild");
+    const checkedByParentEl = document.getElementById("checkedByParent");
+    const progressBarEl = document.getElementById("progressBar");
+    const domainsTodayEl = document.getElementById("domainsToday");
+
+    const notesArea = document.getElementById("notesArea");
+    const saveBtn = document.getElementById("saveBtn");
+    const loadBtn = document.getElementById("loadBtn");
+    const clearDayBtn = document.getElementById("clearDayBtn");
+    const newDayTemplateBtn = document.getElementById("newDayTemplateBtn");
+
+    // Reports elements
+    const reportMonthSelect = document.getElementById("reportMonthSelect");
+    const refreshReportBtn = document.getElementById("refreshReportBtn");
+    const reportOverviewEl = document.getElementById("reportOverview");
+    const reportByDomainEl = document.getElementById("reportByDomain");
+    const reportByDayEl = document.getElementById("reportByDay");
+    const generateTextReportBtn = document.getElementById("generateTextReportBtn");
+    const textReportOutput = document.getElementById("textReportOutput");
+
+    let state = loadState();
+
+    // Init date with today if empty
+    if (!datePicker.value) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      datePicker.value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    // Load initial UI
+    syncInputsFromState();
+    renderDay();
+    renderReports();
+
+    // --- Event listeners ---
+
+    childNameInput.addEventListener("input", () => {
+      state.childName = childNameInput.value.trim();
+      childLabel.textContent = state.childName || "No name yet";
+      saveState();
+    });
+
+    datePicker.addEventListener("change", () => {
+      renderDay();
+      renderReports();
+    });
+
+    taskForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const title = taskTitleInput.value.trim();
+      const domain = taskDomainSelect.value;
+      if (!title) return;
+
+      const dayKey = getCurrentDayKey();
+      const day = ensureDay(dayKey);
+
+      day.tasks.push({
+        id: Date.now().toString(),
+        title,
+        domain,
+        doneByChild: false,
+        checkedByParent: false
+      });
+
+      taskTitleInput.value = "";
+      saveState();
+      renderDay();
+      renderReports();
+    });
+
+    saveBtn.addEventListener("click", () => {
+      const dayKey = getCurrentDayKey();
+      const day = ensureDay(dayKey);
+      day.notes = notesArea.value;
+      saveState();
+      renderReports();
+      alert("Day saved.");
+    });
+
+    loadBtn.addEventListener("click", () => {
+      state = loadState();
+      syncInputsFromState();
+      renderDay();
+      renderReports();
+      alert("Data reloaded from storage.");
+    });
+
+    clearDayBtn.addEventListener("click", () => {
+      const dayKey = getCurrentDayKey();
+      if (confirm("Clear all tasks and notes for this date?")) {
+        delete state.days[dayKey];
+        saveState();
+        renderDay();
+        renderReports();
+      }
+    });
+
+    newDayTemplateBtn.addEventListener("click", () => {
+      const dayKey = getCurrentDayKey();
+      if (state.days[dayKey] && state.days[dayKey].tasks.length > 0) {
+        const ok = confirm("Replace current tasks for this date with a simple daily template?");
+        if (!ok) return;
+      }
+      state.days[dayKey] = createDailyTemplate();
+      saveState();
+      renderDay();
+      renderReports();
+    });
+
+    if (reportMonthSelect) {
+      reportMonthSelect.addEventListener("change", () => {
+        renderReports();
+      });
+    }
+
+    if (refreshReportBtn) {
+      refreshReportBtn.addEventListener("click", () => {
+        renderReports();
+      });
+    }
+
+    if (generateTextReportBtn && textReportOutput) {
+      generateTextReportBtn.addEventListener("click", () => {
+        const text = buildTextReport();
+        textReportOutput.value = text;
+        textReportOutput.scrollTop = 0;
+      });
+    }
+
+    // --- Helpers ---
+
+    function getCurrentDayKey() {
+      return datePicker.value || "no-date";
+    }
+
+    function ensureDay(dayKey) {
+      if (!state.days[dayKey]) {
+        state.days[dayKey] = {
+          tasks: [],
+          notes: ""
+        };
+      }
+      return state.days[dayKey];
+    }
+
+    function createDailyTemplate() {
+      const base = Date.now();
+      return {
+        notes: "",
+        tasks: [
+          {
+            id: "t-" + base + "-1",
+            title: "Robot sees a big red ball – reading",
+            domain: "English Speaking & Listening",
+            doneByChild: false,
+            checkedByParent: false
+          },
+          {
+            id: "t-" + base + "-2",
+            title: "Follow straight & wavy lines – tracing",
+            domain: "Fine Motor Skills / Early Writing",
+            doneByChild: false,
+            checkedByParent: false
+          },
+          {
+            id: "t-" + base + "-3",
+            title: "Count robot parts to 10",
+            domain: "Maths (Numbers & Shapes)",
+            doneByChild: false,
+            checkedByParent: false
+          },
+          {
+            id: "t-" + base + "-4",
+            title: "Kaj je to? – robot shop dialogue",
+            domain: "Slovene Language",
+            doneByChild: false,
+            checkedByParent: false
+          }
+        ]
+      };
+    }
+
+    function renderDay() {
+      const dayKey = getCurrentDayKey();
+      const day = ensureDay(dayKey);
+
+      const dateObj = new Date(dayKey);
+      const pretty = isNaN(dateObj.getTime())
+        ? dayKey
+        : dateObj.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+      selectedDayLabel.textContent = pretty;
+
+      tasksListEl.innerHTML = "";
+      if (!day.tasks.length) {
+        const p = document.createElement("p");
+        p.className = "small-text";
+        p.textContent = "No tasks yet. Add tasks above or use the daily template.";
+        tasksListEl.appendChild(p);
+      } else {
+        day.tasks.forEach((task) => {
+          const item = document.createElement("div");
+          item.className = "task-item";
+
+          const main = document.createElement("div");
+          main.className = "task-main";
+
+          const titleEl = document.createElement("div");
+          titleEl.className = "task-title";
+          titleEl.textContent = task.title;
+
+          const domainEl = document.createElement("div");
+          domainEl.className = "task-domain";
+          domainEl.textContent = task.domain;
+
+          main.appendChild(titleEl);
+          main.appendChild(domainEl);
+
+          const status = document.createElement("div");
+          status.className = "task-status";
+
+          const childLabel = document.createElement("label");
+          const childCheckbox = document.createElement("input");
+          childCheckbox.type = "checkbox";
+          childCheckbox.checked = !!task.doneByChild;
+          childCheckbox.addEventListener("change", () => {
+            task.doneByChild = childCheckbox.checked;
+            saveState();
+            updateSummary(day);
+            renderReports();
+          });
+          childLabel.appendChild(childCheckbox);
+          childLabel.append(" Done by child");
+
+          const parentLabel = document.createElement("label");
+          const parentCheckbox = document.createElement("input");
+          parentCheckbox.type = "checkbox";
+          parentCheckbox.checked = !!task.checkedByParent;
+          parentCheckbox.addEventListener("change", () => {
+            task.checkedByParent = parentCheckbox.checked;
+            if (parentCheckbox.checked && !task.doneByChild) {
+              task.doneByChild = true;
+              childCheckbox.checked = true;
+            }
+            saveState();
+            updateSummary(day);
+            renderReports();
+          });
+          parentLabel.appendChild(parentCheckbox);
+          parentLabel.append(" Checked by parent");
+
+          status.appendChild(childLabel);
+          status.appendChild(parentLabel);
+
+          const actions = document.createElement("div");
+          actions.style.textAlign = "right";
+
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "danger";
+          removeBtn.type = "button";
+          removeBtn.textContent = "✕";
+          removeBtn.title = "Delete task";
+          removeBtn.addEventListener("click", () => {
+            const ok = confirm("Delete this task?");
+            if (!ok) return;
+            day.tasks = day.tasks.filter((t) => t.id !== task.id);
+            saveState();
+            renderDay();
+            renderReports();
+          });
+
+          actions.appendChild(removeBtn);
+
+          item.appendChild(main);
+          item.appendChild(status);
+          item.appendChild(actions);
+
+          tasksListEl.appendChild(item);
+        });
+      }
+
+      notesArea.value = day.notes || "";
+      updateSummary(day);
+    }
+
+    function updateSummary(day) {
+      const total = day.tasks.length;
+      const doneByChild = day.tasks.filter((t) => t.doneByChild).length;
+      const checkedByParent = day.tasks.filter((t) => t.checkedByParent).length;
+
+      totalTasksEl.textContent = String(total);
+      doneByChildEl.textContent = String(doneByChild);
+      checkedByParentEl.textContent = String(checkedByParent);
+
+      const percent = total ? Math.round((checkedByParent / total) * 100) : 0;
+      progressBarEl.style.width = percent + "%";
+
+      const domains = Array.from(
+        new Set(day.tasks.map((t) => t.domain))
+      );
+      domainsTodayEl.innerHTML = "";
+      if (!domains.length) {
+        const span = document.createElement("span");
+        span.className = "small-text";
+        span.textContent = "No domains yet.";
+        domainsTodayEl.appendChild(span);
+      } else {
+        domains.forEach((d) => {
+          const chip = document.createElement("span");
+          chip.className = "domain-chip";
+          chip.textContent = d;
+          domainsTodayEl.appendChild(chip);
+        });
+      }
+    }
+
+    function updateReportMonths() {
+      if (!reportMonthSelect) return;
+      const current = reportMonthSelect.value || "all";
+
+      const monthsSet = new Set();
+      Object.keys(state.days || {}).forEach((dayKey) => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dayKey)) {
+          monthsSet.add(dayKey.slice(0, 7)); // YYYY-MM
+        }
+      });
+
+      const months = Array.from(monthsSet).sort();
+
+      reportMonthSelect.innerHTML = "";
+      const allOpt = document.createElement("option");
+      allOpt.value = "all";
+      allOpt.textContent = "All dates";
+      reportMonthSelect.appendChild(allOpt);
+
+      months.forEach((m) => {
+        const opt = document.createElement("option");
+        opt.value = m;
+        const date = new Date(m + "-01");
+        opt.textContent = date.toLocaleDateString(undefined, {
+          month: "short",
+          year: "numeric"
+        });
+        reportMonthSelect.appendChild(opt);
+      });
+
+      if (months.includes(current)) {
+        reportMonthSelect.value = current;
+      } else {
+        reportMonthSelect.value = "all";
+      }
+    }
+
+    function renderReports() {
+      if (!reportOverviewEl || !reportByDomainEl || !reportByDayEl) return;
+
+      updateReportMonths();
+
+      const filterMonth = reportMonthSelect ? reportMonthSelect.value : "all";
+
+      const entries = Object.entries(state.days || {});
+      const filtered = entries.filter(([dayKey, day]) => {
+        if (!day || !day.tasks || !day.tasks.length) return false;
+        if (filterMonth === "all") return true;
+        return dayKey.startsWith(filterMonth);
+      });
+
+      reportOverviewEl.innerHTML = "";
+      reportByDomainEl.innerHTML = "";
+      reportByDayEl.innerHTML = "";
+
+      if (!filtered.length) {
+        reportOverviewEl.innerHTML =
+          '<p class="small-text">No saved days for this filter yet. Save some days first.</p>';
+        return;
+      }
+
+      let totalDays = filtered.length;
+      let totalTasks = 0;
+      let totalChecked = 0;
+
+      const domainStats = {}; // domain -> {tasks, checked, dayKeys:Set}
+
+      filtered.forEach(([dayKey, day]) => {
+        const tasks = day.tasks || [];
+        totalTasks += tasks.length;
+        totalChecked += tasks.filter((t) => t.checkedByParent).length;
+
+        tasks.forEach((t) => {
+          const domain = t.domain || "Other";
+          if (!domainStats[domain]) {
+            domainStats[domain] = {
+              tasks: 0,
+              checked: 0,
+              dayKeys: new Set()
+            };
+          }
+          domainStats[domain].tasks += 1;
+          if (t.checkedByParent) domainStats[domain].checked += 1;
+          domainStats[domain].dayKeys.add(dayKey);
+        });
+      });
+
+      const overallPercent = totalTasks
+        ? Math.round((totalChecked / totalTasks) * 100)
+        : 0;
+
+      // Overview
+      reportOverviewEl.innerHTML =
+        `<div class="report-section-title">Overall summary</div>` +
+        `<p>Days in report: <strong>${totalDays}</strong><br>` +
+        `Total tasks: <strong>${totalTasks}</strong><br>` +
+        `Checked by parent: <strong>${totalChecked}</strong> (` +
+        `<strong>${overallPercent}%</strong> of all tasks)</p>`;
+
+      // By domain
+      const domainKeys = Object.keys(domainStats).sort();
+      if (domainKeys.length) {
+        let html =
+          '<div class="report-section-title">By domain</div>' +
+          '<table class="report-table"><thead>' +
+          '<tr><th>Domain</th><th>Tasks</th><th>Checked</th><th>% checked</th><th>Days used</th></tr>' +
+          "</thead><tbody>";
+
+        domainKeys.forEach((d) => {
+          const stats = domainStats[d];
+          const pct = stats.tasks
+            ? Math.round((stats.checked / stats.tasks) * 100)
+            : 0;
+          html += `<tr>
+            <td>${d}</td>
+            <td>${stats.tasks}</td>
+            <td>${stats.checked}</td>
+            <td>${pct}%</td>
+            <td>${stats.dayKeys.size}</td>
+          </tr>`;
+        });
+
+        html += "</tbody></table>";
+        reportByDomainEl.innerHTML = html;
+      }
+
+      // By day
+      let dayHtml =
+        '<div class="report-section-title">By day</div>' +
+        '<table class="report-table"><thead>' +
+        "<tr><th>Date</th><th>Tasks</th><th>Checked</th><th>% checked</th></tr>" +
+        "</thead><tbody>";
+
+      filtered
+        .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+        .forEach(([dayKey, day]) => {
+          const tasks = day.tasks || [];
+          const checked = tasks.filter((t) => t.checkedByParent).length;
+          const pct = tasks.length
+            ? Math.round((checked / tasks.length) * 100)
+            : 0;
+          const dateObj = new Date(dayKey);
+          const pretty = isNaN(dateObj.getTime())
+            ? dayKey
+            : dateObj.toLocaleDateString(undefined, {
+                weekday: "short",
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+              });
+          dayHtml += `<tr>
+            <td>${pretty}</td>
+            <td>${tasks.length}</td>
+            <td>${checked}</td>
+            <td>${pct}%</td>
+          </tr>`;
+        });
+
+      dayHtml += "</tbody></table>";
+      reportByDayEl.innerHTML = dayHtml;
+    }
+
+    function buildTextReport() {
+      const filterMonth = reportMonthSelect ? reportMonthSelect.value : "all";
+      const entries = Object.entries(state.days || {});
+      const filtered = entries.filter(([dayKey, day]) => {
+        if (!day || !day.tasks || !day.tasks.length) return false;
+        if (filterMonth === "all") return true;
+        return dayKey.startsWith(filterMonth);
+      });
+
+      if (!filtered.length) {
+        return "No saved days for this filter yet. Save some days first.";
+      }
+
+      let totalDays = filtered.length;
+      let totalTasks = 0;
+      let totalChecked = 0;
+
+      const domainStats = {}; // domain -> {tasks, checked}
+
+      filtered.forEach(([dayKey, day]) => {
+        const tasks = day.tasks || [];
+        totalTasks += tasks.length;
+        totalChecked += tasks.filter((t) => t.checkedByParent).length;
+
+        tasks.forEach((t) => {
+          const domain = t.domain || "Other";
+          if (!domainStats[domain]) {
+            domainStats[domain] = { tasks: 0, checked: 0 };
+          }
+          domainStats[domain].tasks += 1;
+          if (t.checkedByParent) domainStats[domain].checked += 1;
+        });
+      });
+
+      const overallPercent = totalTasks
+        ? Math.round((totalChecked / totalTasks) * 100)
+        : 0;
+
+      const childName = state.childName || "the child";
+
+      const monthLabel = (() => {
+        if (filterMonth === "all") return "all recorded dates";
+        const d = new Date(filterMonth + "-01");
+        if (isNaN(d.getTime())) return filterMonth;
+        return d.toLocaleDateString(undefined, {
+          month: "long",
+          year: "numeric"
+        });
+      })();
+
+      const domainKeys = Object.keys(domainStats).sort();
+
+      const strengths = [];
+      const developing = [];
+      const needsSupport = [];
+
+      domainKeys.forEach((d) => {
+        const stats = domainStats[d];
+        const pct = stats.tasks
+          ? Math.round((stats.checked / stats.tasks) * 100)
+          : 0;
+        if (pct >= 80) {
+          strengths.push({ domain: d, pct, stats });
+        } else if (pct >= 40) {
+          developing.push({ domain: d, pct, stats });
+        } else {
+          needsSupport.push({ domain: d, pct, stats });
+        }
+      });
+
+      let lines = [];
+
+      lines.push(`Progress Report for ${childName}`);
+      lines.push(`Period: ${monthLabel}`);
+      lines.push("");
+      lines.push("1. Overall summary");
+      lines.push(`- Days in report: ${totalDays}`);
+      lines.push(`- Total tasks: ${totalTasks}`);
+      lines.push(
+        `- Checked by parent: ${totalChecked} (${overallPercent}% of all tasks)`
+      );
+      lines.push("");
+
+      lines.push("2. Strengths (high completion, 80–100%)");
+      if (!strengths.length) {
+        lines.push("- No domains in this band yet. This is an opportunity to build consistency.");
+      } else {
+        strengths.forEach((s) => {
+          lines.push(
+            `- ${s.domain}: ${s.pct}% checked (${s.stats.checked}/${s.stats.tasks} tasks).`
+          );
+        });
+      }
+      lines.push("");
+
+      lines.push("3. Stable developing areas (40–80%)");
+      if (!developing.length) {
+        lines.push("- No domains in this band, or progress is either very high or very low.");
+      } else {
+        developing.forEach((s) => {
+          lines.push(
+            `- ${s.domain}: ${s.pct}% checked (${s.stats.checked}/${s.stats.tasks} tasks).`
+          );
+        });
+      }
+      lines.push("");
+
+      lines.push("4. Areas to support (0–40%)");
+      if (!needsSupport.length) {
+        lines.push("- No domains in this band. All practiced domains show moderate or strong consistency.");
+      } else {
+        needsSupport.forEach((s) => {
+          lines.push(
+            `- ${s.domain}: ${s.pct}% checked (${s.stats.checked}/${s.stats.tasks} tasks).`
+          );
+        });
+      }
+      lines.push("");
+
+      lines.push("5. Suggested focus for next period");
+      if (needsSupport.length) {
+        lines.push(
+          "- Add at least 2–3 simple, playful tasks per week in the domains that currently have the lowest completion."
+        );
+      } else {
+        lines.push(
+          "- Maintain current routine in strong domains, and gently introduce new challenges to keep learning engaging."
+        );
+      }
+      if (developing.length) {
+        lines.push(
+          "- For developing domains, keep tasks short and positive to gradually increase consistency."
+        );
+      }
+      lines.push(
+        "- Continue to use robot-themed missions and short daily activities to support confidence and enjoyment."
+      );
+
+      return lines.join("\n");
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          return { childName: "Petr", days: {} };
+        }
+        const parsed = JSON.parse(raw);
+        if (!parsed.days) parsed.days = {};
+        return parsed;
+      } catch (e) {
+        console.error("Failed to load state", e);
+        return { childName: "Petr", days: {} };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function syncInputsFromState() {
+      childNameInput.value = state.childName || "";
+      childLabel.textContent = state.childName || "No name yet";
+    }
+  })();
+</script>
+</body>
+</html>
